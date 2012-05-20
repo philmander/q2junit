@@ -2,6 +2,9 @@
 
 Run QUnit with JUnit style assertions.
 
+Q2JUnit adds a suite of assertion methods to the global scope which, under the hood, use 
+the core QUnit assertion methods. It does not modify QUnit in any way.
+
 ##Usage
 
 Include the q2junit javascript after including qunit:
@@ -19,6 +22,7 @@ test("A test", function() {
     assertTrue(true);
 });
 ```
+
 ##Assertions
 
 **assertEquals([message], expected, actual)**
