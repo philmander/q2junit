@@ -11,10 +11,10 @@
 		var assertion = {};
 		if(args.length < 2) {
 			assertion.message = null;
-			assertion.value = args[0];
+			assertion.actual = args[0];
 		} else {
 			assertion.message = args[0];
-			assertion.value = args[1];			
+			assertion.actual = args[1];			
 		}
 		return assertion;
 	};
@@ -48,13 +48,13 @@
 			//no message
 			assertion.message = null;
 			assertion.type = args[0];
-			assertion.value = args[1];
+			assertion.actual = args[1];
 			
 		} else {
 			//message
 			assertion.message = args[0];
 			assertion.type = args[1];
-			assertion.value = args[2];
+			assertion.actual = args[2];
 		}
 		return assertion;
 	};	
@@ -110,125 +110,125 @@
 		},
 	
 		/**
-		 * assertTrue([message], value)
+		 * assertTrue([message], actual)
 		 */
 		assertTrue: function() {
 			var args = getOkArgs(arguments);
-			QUnit.ok.call(global, args.value, args.message || "Value should be true (truthy)");
+			QUnit.ok.call(global, args.actual, args.message || "Value should be true (truthy)");
 		},
 	
 		/**
-		 * assertFalse([message], value)
+		 * assertFalse([message], actual)
 		 */
 		assertFalse: function() {
 			var args = getOkArgs(arguments);
-			QUnit.ok.call(global, !args.value, args.message || "Value should be false (Falsy)");
+			QUnit.ok.call(global, !args.actual, args.message || "Value should be false (Falsy)");
 		},
 	
 		/**
-		 * assertTypeOf([message], type, value)
+		 * assertTypeOf([message], type, actual)
 		 */
 		assertTypeOf: function() {
 			var args = getTypeArgs(arguments);
-			var condition = typeof args.value === args.type;
+			var condition = typeof args.actual === args.type;
 			QUnit.ok.call(global, condition, args.message || "Value should be of type " + args.type);
 		},
 		
 		/**
-		 * assertInstanceOf([message], type, value)
+		 * assertInstanceOf([message], type, actual)
 		 */
 		assertInstanceOf: function() {
 			var args = getTypeArgs(arguments);
-			var condition = args.value instanceof args.type;
+			var condition = args.actual instanceof args.type;
 			QUnit.ok.call(global, condition, args.message || "Value should be an instance of " + args.type);
 		},
 		
 		/**
-		 * assertInstanceOf([message], type, value)
+		 * assertInstanceOf([message], type, actual)
 		 */
 		assertNotInstanceOf: function() {
 			var args = getTypeArgs(arguments);
-			var condition = !(args.value instanceof args.type);
+			var condition = !(args.actual instanceof args.type);
 			QUnit.ok.call(global, condition, args.message || "Value should not be an instance of " + args.type);
 		},
 		
 		/**
-		 * asserts true if the value is type of number or an instance of Number
-		 * assertNumber([message], type, value)
+		 * asserts true if the actual is type of number or an instance of Number
+		 * assertNumber([message], type, actual)
 		 */
 		assertNumber: function() {
 			var args = getOkArgs(arguments);
-			var condition = typeof args.value === "number" || args.value instanceof Number;
+			var condition = typeof args.actual === "number" || args.actual instanceof Number;
 			QUnit.ok.call(global, condition, args.message || "Value should be a number");
 		},
 		
 		/**
-		 * asserts true if the value is type of string or an instance of String
-		 * assertString([message], type, value)
+		 * asserts true if the actual is type of string or an instance of String
+		 * assertString([message], type, actual)
 		 */
 		assertString: function() {
 			var args = getOkArgs(arguments);
-			var condition = typeof args.value === "string" || args.value instanceof String;
+			var condition = typeof args.actual === "string" || args.actual instanceof String;
 			QUnit.ok.call(global, condition, args.message || "Value should be a string");
 		},
 		
 		/**
-		 * asserts true if the value is type of boolean or an instance of Boolean
-		 * assertBoolean([message], type, value)
+		 * asserts true if the actual is type of boolean or an instance of Boolean
+		 * assertBoolean([message], type, actual)
 		 */
 		assertBoolean: function() {
 			var args = getOkArgs(arguments);
-			var condition = typeof args.value === "boolean" || args.value instanceof Boolean;
+			var condition = typeof args.actual === "boolean" || args.actual instanceof Boolean;
 			QUnit.ok.call(global, condition, args.message || "Value should be a boolean");
 		},
 	
 		/**
-		 * assertFunction([message], type, value)
+		 * assertFunction([message], type, actual)
 		 */
 		assertFunction: function() {
 			var args = getOkArgs(arguments);
-			var condition = args.value instanceof Function;
+			var condition = args.actual instanceof Function;
 			QUnit.ok.call(global, condition, args.message || "Value should be a function");
 		},
 		
 		/**
-		 * assertObject([message], type, value)
+		 * assertObject([message], type, actual)
 		 */
 		assertObject: function() {
 			var args = getOkArgs(arguments);
-			var condition = typeof args.value !== "object" || typeof args.value !== "function";
+			var condition = typeof args.actual !== "object" || typeof args.actual !== "function";
 			QUnit.ok.call(global, condition, args.message || "Value should be an object");
 		},
 		
 		/**
-		 * assertArray([message], type, value)
+		 * assertArray([message], type, actual)
 		 */
 		assertArray: function() {
 			var args = getOkArgs(arguments);
 			var condition;
 			if (Array.isArray){
-				condition = Array.isArray(args.value);
+				condition = Array.isArray(args.actual);
 			} else {
-				condition = Object.prototype.toString.call(args.value) === "[object Array]";
+				condition = Object.prototype.toString.call(args.actual) === "[object Array]";
 			}
 			QUnit.ok.call(global, condition, args.message || "Value should be an array");
 		},
 		
 		/**
-		 * assertNull([message], value)
+		 * assertNull([message], actual)
 		 */
 		assertNull: function() {
 			var args = getOkArgs(arguments);
-			var condition = args.value === null;
+			var condition = args.actual === null;
 			QUnit.ok.call(global, condition, args.message || "Value should be null");
 		},
 		
 		/**
-		 * assertNotNull([message], value)
+		 * assertNotNull([message], actual)
 		 */
 		assertNotNull: function() {
 			var args = getOkArgs(arguments);
-			var condition = args.value !== null;
+			var condition = args.actual !== null;
 			QUnit.ok.call(global, condition, args.message || "Value should not be null");
 		},
 	
@@ -237,16 +237,16 @@
 		 */
 		assertUndefined: function() {
 			var args = getOkArgs(arguments);
-			var condition = typeof args.value === "undefined";
+			var condition = typeof args.actual === "undefined";
 			QUnit.ok.call(global, condition, args.message || "Value should be undefined");
 		},
 	
 		/**
-		 * assertNotUndefined([message], value)
+		 * assertNotUndefined([message], actual)
 		 */
 		assertNotUndefined: function() {
 			var args = getOkArgs(arguments);
-			var condition = typeof args.value !== "undefined";
+			var condition = typeof args.actual !== "undefined";
 			QUnit.ok.call(global, condition, args.message || "Value should not be undefined");
 		},
 	
@@ -255,7 +255,7 @@
 		 */
 		assertNaN: function() {
 			var args = getOkArgs(arguments);
-			var condition = isNaN(args.value);
+			var condition = isNaN(args.actual);
 			QUnit.ok.call(global, condition, args.message || "Value should be NaN");
 		},
 		
@@ -264,7 +264,7 @@
 		 */
 		assertNotNaN: function() {
 			var args = getOkArgs(arguments);
-			var condition = !isNaN(args.value);
+			var condition = !isNaN(args.actual);
 			QUnit.ok.call(global, condition, args.message || "Value should not be NaN");
 		},
 		
