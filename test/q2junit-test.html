@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Q2JUnit tests</title>
+<link type="text/css" rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css">
+<script src="http://code.jquery.com/qunit/qunit-git.js"></script>
+
+<script src="../js/q2junit.js"></script>
+
+</head>
+<body>
+<script>
+
+    module("Q2JUnit Tests");
+    test("assertEquals", function() {  
+    	
+    	assertEquals(10, 10);
+    	assertEquals("hello", "hello");
+    	assertEquals(true, true);
+    	assertEquals(false, false);
+    	assertEquals(null, null);
+    	
+    	assertEquals("with message", 10, 10);
+    	assertEquals("with message", "hello", "hello");
+    	assertEquals("with message", true, true);
+    	assertEquals("with message", false, false);
+    	assertEquals("with message", null, null);
+    });
+    
+    test("assertNotEquals", function() {  
+    	
+    	assertNotEquals(10, 11);
+    	assertNotEquals("hello", "hallo");
+    	assertNotEquals(true, false);
+    	assertNotEquals(null, {});
+    	
+    	assertNotEquals("with message", 10, 101);
+    	assertNotEquals("with message", "hello", "hallo");
+    	assertNotEquals("with message", true, false);
+    	assertNotEquals("with message", null, {});
+    });
+    
+    test("assertArrayEquals", function() {  
+    	
+    	assertArrayEquals([ "one", "two", "three"], [ "one", "two", "three"]);
+    	assertArrayEquals("with message", [ "one", "two", "three"], [ "one", "two", "three"]);
+    });
+    
+	test("assertArrayNotEquals", function() {  
+    	
+    	assertArrayNotEquals([ "one", "two", "three"], [ "two", "one", "three"]);
+    	assertArrayNotEquals("with message", [ "one", "two", "three"], [ "twp", "one", "three"]);
+    });
+	
+	test("assertSame", function() {
+				
+    	assertSame(10, 10);
+    	assertSame("hello", "hello");
+    	assertSame(true, true);
+    	assertSame(false, false);
+    	assertSame(null, null);
+    	
+    	assertSame("with message", 10, 10);
+    	assertSame("with message", "hello", "hello");
+    	assertSame("with message", true, true);
+    	assertSame("with message", false, false);
+    	assertSame("with message", null, null);
+	});
+	
+	test("assertNotSame", function() {
+		
+		assertNotSame(10, 11);
+		assertNotSame("hello", "hallo");
+		assertNotSame(true, false);
+		assertNotSame(null, {});
+		assertNotSame(new Number(2), new Number(2));
+		assertNotSame({}, {});
+		
+		assertNotSame("with message", 10, 11);
+		assertNotSame("with message", "hello", "hallo");
+		assertNotSame("with message", true, false);
+		assertNotSame("with message", null, {});
+		assertNotSame("with message", new Number(2), new Number(2));
+		assertNotSame("with message", {}, {});		
+	});
+	
+	test("assertTrue", function() {
+		assertTrue(true)
+		assertTrue("hello" == new String("hello"));
+		
+		assertTrue("with message", true)
+		assertTrue("with message", "hello" == new String("hello"));
+	});
+	
+	test("assertFalse", function() {
+		assertFalse(false)
+		assertFalse("hello" == new String("hallo"));
+		
+		assertFalse("with message", false)
+		assertFalse("with message", "hello" == new String("hallo"));
+	});
+    
+    test("assertTypeOf", function() {  
+    	
+    	assertTypeOf("number", 2);
+    	assertTypeOf("number", 2.2);
+    	assertTypeOf("string", "i am a string");
+    	assertTypeOf("boolean", true);
+    	assertTypeOf("boolean", false);
+    	assertTypeOf("object", null);
+    	assertTypeOf("object", {});
+    	assertTypeOf("object", []);
+    	assertTypeOf("function", function() {});
+    	assertTypeOf("undefined", window.blah);
+    	
+    	assertTypeOf("with message", "number", 2);
+    	assertTypeOf("with message", "number", 2.2);
+    	assertTypeOf("with message", "string", "i am a string");
+    	assertTypeOf("with message", "boolean", true);
+    	assertTypeOf("with message", "boolean", false);
+    	assertTypeOf("with message", "object", null);
+    	assertTypeOf("with message", "object", {});
+    	assertTypeOf("with message", "object", []);
+    	assertTypeOf("with message", "function", function() {});
+    	assertTypeOf("with message", "undefined", window.blah);    	
+    });
+    
+    test("assertInstanceOf", function() {
+    	
+    	var Blah = function() {
+    		
+    	};
+    	
+    	assertInstanceOf(Number, new Number(99));
+    	assertInstanceOf(Boolean, new Boolean(99));
+    	assertInstanceOf(String, new String(99));
+    	assertInstanceOf(Function, function() {});
+    	assertInstanceOf(Blah, new Blah());
+    	
+    	assertInstanceOf("with message", Number, new Number(99));
+    	assertInstanceOf("with message", Boolean, new Boolean(99));
+    	assertInstanceOf("with message", String, new String(99));
+    	assertInstanceOf("with message", Function, function() {});
+    	assertInstanceOf("with message", Blah, new Blah());    	
+    });
+    
+	test("assertNotInstanceOf", function() {
+    	
+    	var Blah = function() {
+    		
+    	};
+    	
+    	assertNotInstanceOf(Number, new String(99));
+    	assertNotInstanceOf(Boolean, new Number(99));
+    	assertNotInstanceOf(String, new Boolean(99));
+    	assertNotInstanceOf(Number, new Blah());
+    	
+    	assertNotInstanceOf("with message", Number, new String(99));
+    	assertNotInstanceOf("with message", Boolean, new Number(99));
+    	assertNotInstanceOf("with message", String, new Boolean(99));
+    	assertNotInstanceOf("with message", Number, new Blah());	
+    });
+	
+	test("assertNumber", function() {
+    	
+    	assertNumber(10);
+    	assertNumber(new Number(10));
+    	
+    	assertNumber("with message", 10);
+    	assertNumber("with message", new Number(10));
+    });
+    
+	test("assertBoolean", function() {
+    	
+		assertBoolean(true);
+		assertBoolean(false);
+		assertBoolean(new Boolean(true));
+		assertBoolean(new Boolean(false));
+		
+		assertBoolean("with message", true);
+		assertBoolean("with message", false);
+		assertBoolean("with message", new Boolean(true));
+		assertBoolean("with message", new Boolean(false));
+    });
+	
+	test("assertString", function() {
+    	
+		assertString("hello");
+		assertString(new String("hello"));
+		
+		assertString("with message", "hello");
+		assertString("with message", new String("hello"));
+    });	
+	
+	test("assertFunction", function() {
+    	
+		assertFunction(function() {});
+		
+    	assertFunction("with message", function() {});
+    });
+	
+	test("assertObject", function() {
+    	
+		assertObject({});
+		assertObject([]);
+		assertObject(function() {});
+		
+		assertObject("with message", {});
+		assertObject("with message", []);
+		assertObject("with message", function() {});
+    });
+    
+	test("assertArray", function() {
+		
+		assertArray([1, 2, 3]);
+		assertArray("with message", [1, 2, 3]);
+	});
+	
+	test("assertNull", function() {
+		
+		assertNull(null);
+		assertNull("with message", null);
+	});
+	
+	test("assertNotNull", function() {
+		
+		assertNotNull({});
+		assertNotNull("with message", {});
+	});
+	
+	test("assertUndefined", function() {
+		
+		assertUndefined(window.blahblahblah);
+		assertUndefined("with message", window.blahblahblah);
+	});
+	
+	test("assertNotUndefined", function() {
+		
+		assertNotUndefined(window.document);
+		assertNotUndefined("with message", window.document);
+	});
+	
+	test("assertNaN", function() {
+		
+		assertNaN(window.document);
+		assertNaN("with message", window.document);
+	});
+	
+	test("assertNotNaN", function() {
+		
+		assertNotNaN(99);
+		assertNotNaN("with message", 99);
+	});
+    
+</script>
+<h1 id="qunit-header">Q2JUnit tests</h1>
+ <h2 id="qunit-banner"></h2>
+ <div id="qunit-testrunner-toolbar"></div>
+ <h2 id="qunit-userAgent"></h2>
+ <ol id="qunit-tests"></ol>
+ <div id="qunit-fixture"></div>
+</body>
+</html>
