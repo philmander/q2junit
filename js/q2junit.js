@@ -295,7 +295,7 @@
 		 * fail([message])
 		 */
 		fail: function() {
-			QUnit.push(false === true, true, false,  arguments[0] || "Forced failure");
+			QUnit.push(false === true, "[fail]", "[fail]",  arguments[0] || "Forced failure");
 		}
 	};
 	
