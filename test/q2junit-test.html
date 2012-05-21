@@ -16,12 +16,14 @@
     	
     	assertEquals(10, 10);
     	assertEquals("hello", "hello");
+    	assertEquals("hello", new String("hello"));
     	assertEquals(true, true);
     	assertEquals(false, false);
     	assertEquals(null, null);
     	
     	assertEquals("with message", 10, 10);
     	assertEquals("with message", "hello", "hello");
+    	assertEquals("with message", "hello", new String("hello"));
     	assertEquals("with message", true, true);
     	assertEquals("with message", false, false);
     	assertEquals("with message", null, null);
@@ -127,7 +129,11 @@
     
     test("assertInstanceOf", function() {
     	
-    	var Blah = function() {
+    	var Blah = function Blah() {
+    		
+    	};
+    	
+		var Blahhhh = function Blahhhh() {
     		
     	};
     	
@@ -136,12 +142,14 @@
     	assertInstanceOf(String, new String(99));
     	assertInstanceOf(Function, function() {});
     	assertInstanceOf(Blah, new Blah());
+    	assertInstanceOf(Object, new Blah());
     	
     	assertInstanceOf("with message", Number, new Number(99));
     	assertInstanceOf("with message", Boolean, new Boolean(99));
     	assertInstanceOf("with message", String, new String(99));
     	assertInstanceOf("with message", Function, function() {});
-    	assertInstanceOf("with message", Blah, new Blah());    	
+    	assertInstanceOf("with message", Blah, new Blah());
+    	assertInstanceOf("with message", Object, new Blah());    	
     });
     
 	test("assertNotInstanceOf", function() {

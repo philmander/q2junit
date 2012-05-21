@@ -1,5 +1,5 @@
 /*global QUnit, exports */
-/*jshint strict:true,smarttabs:true */
+/*jshint strict:false,eqeqeq:false,smarttabs:true */
 (function(global) {
 	
 	"use strict";
@@ -66,7 +66,8 @@
 		 */
 		assertEquals: function() {
 			var args = getEqualArgs(arguments);
-			QUnit.equal.call(global, args.actual, args.expected, args.message || "Values should be equal");
+			var condition = args.actual == args.expected;
+			QUnit.push(condition, args.actual, args.expected,  args.message || "Values should be equal");
 		},
 	
 		/**
@@ -74,7 +75,8 @@
 		 */
 		assertNotEquals: function() {
 			var args = getEqualArgs(arguments);
-			QUnit.notEqual.call(global, args.actual, args.expected, args.message || "Values should not be equal");
+			var condition = args.actual != args.expected;
+			QUnit.push(condition, args.actual, args.expected,  args.message || "Values should not be equal");
 		},
 		
 		/**
@@ -82,7 +84,8 @@
 		 */
 		assertArrayEquals: function() {
 			var args = getEqualArgs(arguments);
-			QUnit.deepEqual.call(global, args.actual, args.expected, args.message || "Arrays should be equal");
+			var condition = QUnit.equiv(args.actual, args.expected);
+			QUnit.push(condition, args.actual, args.expected, args.message || "Arrays should be equal");
 		},
 
 		/**
@@ -90,7 +93,8 @@
 		 */
 		assertArrayNotEquals: function() {
 			var args = getEqualArgs(arguments);
-			QUnit.notDeepEqual.call(global, args.actual, args.expected, args.message || "Arrays should not be equal");
+			var condition = !QUnit.equiv(args.actual, args.expected);
+			QUnit.push(condition, args.actual, args.expected, args.message || "Arrays should be equal");
 		},
 	
 		/**
@@ -98,7 +102,8 @@
 		 */
 		assertSame: function() {
 			var args = getEqualArgs(arguments);
-			QUnit.strictEqual.call(global, args.actual, args.expected, args.message || "Values should be the same");
+			var condition = args.actual === args.expected;
+			QUnit.push(condition, args.actual, args.expected,  args.message || "Values should be the same");
 		},
 		
 		/**
@@ -106,15 +111,18 @@
 		 */
 		assertNotSame: function() {
 			var args = getEqualArgs(arguments);
-			QUnit.notStrictEqual.call(global, args.actual, args.expected, args.message || "Values should not be the same");
+			var condition = args.actual !== args.expected;
+			QUnit.push(condition, args.actual, args.expected,  args.message || "Values should not be the same");
 		},
 	
 		/**
+		 * Asserts actual is truthy
 		 * assertTrue([message], actual)
 		 */
 		assertTrue: function() {
 			var args = getOkArgs(arguments);
-			QUnit.ok.call(global, args.actual, args.message || "Value should be true (truthy)");
+			var condition = args.actual;
+			QUnit.push(condition, args.actual, true,  args.message || "Value should be true (truthy)");
 		},
 	
 		/**
@@ -122,7 +130,8 @@
 		 */
 		assertFalse: function() {
 			var args = getOkArgs(arguments);
-			QUnit.ok.call(global, !args.actual, args.message || "Value should be false (Falsy)");
+			var condition = !args.actual;
+			QUnit.push(condition, args.actual, false,  args.message || "Value should be true (falsy)");
 		},
 	
 		/**
@@ -131,25 +140,29 @@
 		assertTypeOf: function() {
 			var args = getTypeArgs(arguments);
 			var condition = typeof args.actual === args.type;
-			QUnit.ok.call(global, condition, args.message || "Value should be of type " + args.type);
+			QUnit.push(condition === true, typeof args.actual, args.type,  args.message || "Value should be of type " + args.type);
 		},
 		
 		/**
 		 * assertInstanceOf([message], type, actual)
 		 */
 		assertInstanceOf: function() {
+			
+			//TOOD: improve reporting for instance of assertions
 			var args = getTypeArgs(arguments);
 			var condition = args.actual instanceof args.type;
-			QUnit.ok.call(global, condition, args.message || "Value should be an instance of " + args.type);
+			QUnit.push(condition === true, args.actual, args.type ,  args.message || "Value should be an instance of " + args.type);
 		},
 		
 		/**
 		 * assertInstanceOf([message], type, actual)
 		 */
 		assertNotInstanceOf: function() {
+			
+			//TOOD: improve reporting for instance of assertions
 			var args = getTypeArgs(arguments);
 			var condition = !(args.actual instanceof args.type);
-			QUnit.ok.call(global, condition, args.message || "Value should not be an instance of " + args.type);
+			QUnit.push(condition === true, args.actual, args.type ,  args.message || "Value should not be an instance of " + args.type);
 		},
 		
 		/**
@@ -159,7 +172,7 @@
 		assertNumber: function() {
 			var args = getOkArgs(arguments);
 			var condition = typeof args.actual === "number" || args.actual instanceof Number;
-			QUnit.ok.call(global, condition, args.message || "Value should be a number");
+			QUnit.push(condition === true, args.actual, "[number]",  args.message || "Value should be a number");
 		},
 		
 		/**
@@ -169,7 +182,7 @@
 		assertString: function() {
 			var args = getOkArgs(arguments);
 			var condition = typeof args.actual === "string" || args.actual instanceof String;
-			QUnit.ok.call(global, condition, args.message || "Value should be a string");
+			QUnit.push(condition === true, args.actual, "[string]",  args.message || "Value should be a string");
 		},
 		
 		/**
@@ -179,7 +192,7 @@
 		assertBoolean: function() {
 			var args = getOkArgs(arguments);
 			var condition = typeof args.actual === "boolean" || args.actual instanceof Boolean;
-			QUnit.ok.call(global, condition, args.message || "Value should be a boolean");
+			QUnit.push(condition === true, args.actual, "[boolean]",  args.message || "Value should be a boolean");
 		},
 	
 		/**
@@ -188,7 +201,7 @@
 		assertFunction: function() {
 			var args = getOkArgs(arguments);
 			var condition = args.actual instanceof Function;
-			QUnit.ok.call(global, condition, args.message || "Value should be a function");
+			QUnit.push(condition === true, args.actual, "[Function]",  args.message || "Value should be a function");
 		},
 		
 		/**
@@ -197,7 +210,7 @@
 		assertObject: function() {
 			var args = getOkArgs(arguments);
 			var condition = args.actual && (typeof args.actual === "object" || typeof args.actual === "function");
-			QUnit.ok.call(global, condition, args.message || "Value should be an object");
+			QUnit.push(condition === true, args.actual, "[Object]",  args.message || "Value should be an object");
 		},
 		
 		/**
@@ -211,7 +224,7 @@
 			} else {
 				condition = Object.prototype.toString.call(args.actual) === "[object Array]";
 			}
-			QUnit.ok.call(global, condition, args.message || "Value should be an array");
+			QUnit.push(condition === true, args.actual, "[Array]",  args.message || "Value should be an array");
 		},
 		
 		/**
@@ -221,6 +234,7 @@
 			var args = getOkArgs(arguments);
 			var condition = args.actual === null;
 			QUnit.ok.call(global, condition, args.message || "Value should be null");
+			QUnit.push(condition === true, args.actual, "[null]",  args.message || "Value should be null");
 		},
 		
 		/**
@@ -229,7 +243,7 @@
 		assertNotNull: function() {
 			var args = getOkArgs(arguments);
 			var condition = args.actual !== null;
-			QUnit.ok.call(global, condition, args.message || "Value should not be null");
+			QUnit.push(condition === true, args.actual, "[not null]",  args.message || "Value should not be null");
 		},
 	
 		/**
@@ -238,7 +252,7 @@
 		assertUndefined: function() {
 			var args = getOkArgs(arguments);
 			var condition = typeof args.actual === "undefined";
-			QUnit.ok.call(global, condition, args.message || "Value should be undefined");
+			QUnit.push(condition === true, args.actual, "[undefined]",  args.message || "Value should be undefined");
 		},
 	
 		/**
@@ -247,7 +261,7 @@
 		assertNotUndefined: function() {
 			var args = getOkArgs(arguments);
 			var condition = typeof args.actual !== "undefined";
-			QUnit.ok.call(global, condition, args.message || "Value should not be undefined");
+			QUnit.push(condition === true, args.actual, "not undefined",  args.message || "Value should not be undefined");
 		},
 	
 		/**
@@ -256,7 +270,7 @@
 		assertNaN: function() {
 			var args = getOkArgs(arguments);
 			var condition = isNaN(args.actual);
-			QUnit.ok.call(global, condition, args.message || "Value should be NaN");
+			QUnit.push(condition === true, args.actual, "NaN",  args.message || "Value should be NaN");
 		},
 		
 		/**
@@ -265,14 +279,14 @@
 		assertNotNaN: function() {
 			var args = getOkArgs(arguments);
 			var condition = !isNaN(args.actual);
-			QUnit.ok.call(global, condition, args.message || "Value should not be NaN");
+			QUnit.push(condition === true, args.actual, "not NaN",  args.message || "Value should not be NaN");
 		},
 		
 		/**
 		 * assertNotNull([message], actual)
 		 */
 		fail: function() {
-			QUnit.ok.call(global, false, arguments[0] || "Test should fail");
+			QUnit.push(false === true, true, false,  arguments[0] || "Forced failure");
 		}
 	};
 	
