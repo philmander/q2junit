@@ -154,7 +154,7 @@
 		
 		/**
 		 * asserts true if the actual is type of number or an instance of Number
-		 * assertNumber([message], type, actual)
+		 * assertNumber([message], actual)
 		 */
 		assertNumber: function() {
 			var args = getOkArgs(arguments);
@@ -164,7 +164,7 @@
 		
 		/**
 		 * asserts true if the actual is type of string or an instance of String
-		 * assertString([message], type, actual)
+		 * assertString([message], actual)
 		 */
 		assertString: function() {
 			var args = getOkArgs(arguments);
@@ -174,7 +174,7 @@
 		
 		/**
 		 * asserts true if the actual is type of boolean or an instance of Boolean
-		 * assertBoolean([message], type, actual)
+		 * assertBoolean([message], actual)
 		 */
 		assertBoolean: function() {
 			var args = getOkArgs(arguments);
@@ -183,7 +183,7 @@
 		},
 	
 		/**
-		 * assertFunction([message], type, actual)
+		 * assertFunction([message], actual)
 		 */
 		assertFunction: function() {
 			var args = getOkArgs(arguments);
@@ -192,16 +192,16 @@
 		},
 		
 		/**
-		 * assertObject([message], type, actual)
+		 * assertObject([message], actual)
 		 */
 		assertObject: function() {
 			var args = getOkArgs(arguments);
-			var condition = typeof args.actual !== "object" || typeof args.actual !== "function";
+			var condition = args.actual && (typeof args.actual === "object" || typeof args.actual === "function");
 			QUnit.ok.call(global, condition, args.message || "Value should be an object");
 		},
 		
 		/**
-		 * assertArray([message], type, actual)
+		 * assertArray([message], actual)
 		 */
 		assertArray: function() {
 			var args = getOkArgs(arguments);
@@ -233,7 +233,7 @@
 		},
 	
 		/**
-		 * assertUndefined([message], 
+		 * assertUndefined([message], actual)
 		 */
 		assertUndefined: function() {
 			var args = getOkArgs(arguments);
@@ -251,7 +251,7 @@
 		},
 	
 		/**
-		 * assertNotNull([message], 
+		 * assertNotNull([message], actual)
 		 */
 		assertNaN: function() {
 			var args = getOkArgs(arguments);
@@ -260,7 +260,7 @@
 		},
 		
 		/**
-		 * assertNotNull([message], 
+		 * assertNotNull([message], actual)
 		 */
 		assertNotNaN: function() {
 			var args = getOkArgs(arguments);
@@ -269,7 +269,7 @@
 		},
 		
 		/**
-		 * assertNotNull([message], 
+		 * assertNotNull([message], actual)
 		 */
 		fail: function() {
 			QUnit.ok.call(global, false, arguments[0] || "Test should fail");
