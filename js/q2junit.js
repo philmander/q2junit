@@ -1,4 +1,4 @@
-/*global QUnit, exports, require */
+/*global exports, require */
 /*jshint strict:false,eqeqeq:false,smarttabs:true */
 (function(global) {
 	
