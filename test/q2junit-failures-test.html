@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Q2JUnit failure tests)</title>
+<link type="text/css" rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css">
+<script src="http://code.jquery.com/qunit/qunit-git.js"></script>
+
+<script src="../js/q2junit.js"></script>
+
+</head>
+<body>
+<script>
+
+    module("Q2JUnit failure Tests");
+    test("assertEquals", function() {  
+    	
+    	assertEquals(10, 11);
+    	assertEquals("hello", "hallo");    	
+    	assertEquals(false, true);
+    	assertEquals(null, {});
+    });
+    
+    test("assertNotEquals", function() {  
+    	
+    	assertNotEquals(10, 10);
+    	assertNotEquals("hello", "hello");
+    	assertNotEquals(true, true);    	    
+    });
+    
+    test("assertArrayEquals", function() {  
+    	
+    	assertArrayEquals([ "one", "two", "three"], [ "one", "two", "four"]);    	
+    });
+    
+	test("assertArrayNotEquals", function() {  
+    	
+    	assertArrayNotEquals([ "one", "two", "three"], [ "one", "two", "three"]);    	
+    });
+	
+	test("assertSame", function() {
+				
+    	assertSame(new Number(10), new Number(10));
+    	assertSame(new String("hello"), new String("hello"));
+    	assertSame(new Boolean(true), new Boolean(true));
+	});
+	
+	test("assertNotSame", function() {
+		
+		var obj = new String("hello")
+    	assertNotSame(obj, obj);
+	
+	});
+	
+	test("assertTrue", function() {
+		assertTrue(false);	
+	});
+	
+	test("assertFalse", function() {
+		assertFalse(true);
+	});
+    
+    test("assertTypeOf", function() {  
+    	
+    	assertTypeOf("number", "i am a string");    	
+    	assertTypeOf("string", true);
+    	assertTypeOf("boolean", 2);    	
+    });
+    
+    test("assertInstanceOf", function() {
+    	
+    	assertInstanceOf(Number, new Boolean(99));
+    	assertInstanceOf(Boolean, new String(99));
+    	assertInstanceOf(String, new Number(99));  	
+    });
+    
+	test("assertNotInstanceOf", function() {
+    	
+    	assertNotInstanceOf(Number, new Number(99));
+    	assertNotInstanceOf(Boolean, new Boolean(99));
+    	assertNotInstanceOf(String, new String(99));
+    });
+	
+	test("assertNumber", function() {
+    	
+    	assertNumber("1");
+    });
+    
+	test("assertBoolean", function() {
+    	
+		assertBoolean("true");
+	});
+	
+	test("assertString", function() {
+    	
+		assertString(99);		
+    });	
+	
+	test("assertFunction", function() {
+    	
+		assertFunction({});
+    });
+	
+	test("assertObject", function() {
+    	
+		assertObject(null);
+    });
+    
+	test("assertArray", function() {
+		
+		assertArray({ 
+			"0" : "First",
+			"1" : "Second",
+			"3" : "Third"
+		});		
+	});
+	
+	test("assertNull", function() {
+		
+		assertNull(false);		
+	});
+	
+	test("assertNotNull", function() {
+		
+		assertNotNull(null);		
+	});
+	
+	test("assertUndefined", function() {
+		
+		assertUndefined(window.document);		
+	});
+	
+	test("assertNotUndefined", function() {
+		
+		assertNotUndefined(window.blaaahhh);		
+	});
+	
+	test("assertNaN", function() {
+		
+		assertNaN(99);
+	});
+	
+	test("assertNotNaN", function() {
+		
+		assertNotNaN(window.document);
+	});
+    
+	test("fail", function() {
+		fail();	
+	});
+	
+</script>
+<h1 id="qunit-header">Q2JUnit failure tests</h1>
+ <h2 id="qunit-banner"></h2>
+ <div id="qunit-testrunner-toolbar"></div>
+ <h2 id="qunit-userAgent"></h2>
+ <ol id="qunit-tests"></ol>
+ <div id="qunit-fixture"></div>
+</body>
+</html>

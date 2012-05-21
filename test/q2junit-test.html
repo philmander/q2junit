@@ -60,13 +60,17 @@
     	assertSame("hello", "hello");
     	assertSame(true, true);
     	assertSame(false, false);
-    	assertSame(null, null);
+    	assertSame(null, null);    	
+    	var obj = new String("hello")
+    	assertSame(obj, obj);
     	
     	assertSame("with message", 10, 10);
     	assertSame("with message", "hello", "hello");
     	assertSame("with message", true, true);
     	assertSame("with message", false, false);
     	assertSame("with message", null, null);
+    	var obj = new String("hello")
+    	assertSame("with message", obj, obj);
 	});
 	
 	test("assertNotSame", function() {
