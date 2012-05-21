@@ -1,8 +1,18 @@
-/*global QUnit, exports */
+/*global QUnit, exports, require */
 /*jshint strict:false,eqeqeq:false,smarttabs:true */
 (function(global) {
 	
 	"use strict";
+	
+	//get QUnit
+	var QUnit;
+	if(!global.QUnit && typeof require !== "undefined") {
+		QUnit = require("qunit");
+	} else if(global.QUnit) {
+		QUnit = global.QUnit;
+	} else {
+		throw new Error("You must first include QUnit to use Q2JUnit.");
+	}
 	
 	//Convert args to qunit format when calling ok assertions
 	var getOkArgs = function() {
